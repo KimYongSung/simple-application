@@ -1,8 +1,10 @@
 package com.kys.book.domain.posts;
 
+import com.kys.book.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +15,8 @@ import javax.persistence.Id;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Posts {
+@ToString(callSuper = true)
+public class Posts extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
