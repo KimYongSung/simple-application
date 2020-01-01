@@ -11,4 +11,8 @@ public enum ErrorCode {
     private String code;
 
     private String message;
+
+    public String toString(){
+        return "[ " + code + " : " + message + " ]";
+    }
 }

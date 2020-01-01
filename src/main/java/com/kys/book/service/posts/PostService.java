@@ -47,6 +47,21 @@ public class PostService {
     }
 
     /**
+     * post 내용 수정
+     * @param id
+     * @param dto
+     * @return
+     */
+    @Transactional
+    public void delete(Long id){
+
+        Posts posts = postRepository.findById(id)
+                .orElseThrow(UserNotFoundException::new);
+
+        postRepository.delete(posts);
+    }
+
+    /**
      * post 조회
      * @param id
      * @return
