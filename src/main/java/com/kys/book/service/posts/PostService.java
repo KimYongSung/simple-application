@@ -49,7 +49,6 @@ public class PostService {
     /**
      * post 내용 수정
      * @param id
-     * @param dto
      * @return
      */
     @Transactional
