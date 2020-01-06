@@ -14,12 +14,6 @@ cache:
 
 script: "./gradlew clean build"
 
-# CI 실행 완료시 메일로 알람
-notifications:
-  email:
-    recipients:
-      - dydtjd0245@gmail.com
-
 before_deploy:
   - zip -r simple-application *
   - mkdir -p deploy
@@ -35,3 +29,20 @@ deploy:
     acl: private
     local_dir: deploy # before_deploy에서 생성한 디렉토리
     wait-until-deployed: true
+
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY # Travis repo setting
+    secret_access_key: $AWS_SECRET_KEY # Travis repo setting
+    bucket: kys-springboot2-webservice
+    key: simple-application.zip
+    bundle_type: zip
+    application: kys-springboot2-webservice # 웹콘솔에 등록한 CodeDeploy 어플리케이션
+    deployment_group: kys-springboot2-webservice-group # 웹콘솔에 등록한 코드 deploy 그룹
+    region: ap-northeast-2
+    wait-until-deployed: true
+
+# CI 실행 완료시 메일로 알람
+notifications:
+  email:
+    recipients:
+      - dydtjd0245@gmail.com
