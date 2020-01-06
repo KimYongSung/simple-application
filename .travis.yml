@@ -19,3 +19,19 @@ notifications:
   email:
     recipients:
       - dydtjd0245@gmail.com
+
+before_deploy:
+  - zip -r simple-application *
+  - mkdir -p deploy
+  - mv simple-application.zip deploy/simple-application.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY # Travis repo setting
+    secret_access_key: $AWS_SECRET_KEY # Travis repo setting
+    bucket: kys-springboot2-webservice
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private
+    local_dir: deploy # before_deploy에서 생성한 디렉토리
+    wait-until-deployed: true
